@@ -28,3 +28,6 @@
 .log-nav > div > ul > li {
     list-style-type: none;
 }
+.log-lines > li {
+    list-style-type: none;
+}

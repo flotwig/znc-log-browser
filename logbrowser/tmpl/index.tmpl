@@ -8,7 +8,7 @@
         <ul>
             <? LOOP Networks ?>
                 <li class="<? IF Selected == "True" ?>selected<? ENDIF ?>">
-                    <a href="?network=<? VAR Name ?>"><? VAR Name ?></a>
+                    <a href="<? VAR URL ?>"><? VAR Name ?></a>
                 </li>
             <? ENDLOOP ?>
         </ul>
@@ -21,7 +21,7 @@
             <ul>
                 <? LOOP Channels ?>
                     <li class="<? IF Selected == "True" ?>selected<? ENDIF ?>">
-                        <a href="?network=<? VAR Network ?>&channel=<? VAR Name ?>"><? VAR Name ?></a>
+                        <a href="<? VAR URL ?>"><? VAR Name ?></a>
                     </li>
                 <? ENDLOOP ?>
             </ul>
@@ -35,7 +35,7 @@
             <ul>
                 <? LOOP Days ?>
                     <li>
-                        <a href="log?network=<? VAR Network ?>&channel=<? VAR Channel ?>&day=<? VAR Name ?>"><? VAR Name ?></a>
+                        <a href="<? VAR URL ?>"><? VAR Name ?></a>
                     </li>
                 <? ENDLOOP ?>
             </ul>

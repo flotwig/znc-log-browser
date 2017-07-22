@@ -1,2 +1,13 @@
 <? INC Header.tmpl ?>
+
+<link href="<? VAR ModFilesPath TOP ?>style.css" rel="stylesheet" type="text/css">
+
+<ul class="log-lines">
+    <? LOOP LogLines ?>
+        <li>
+            <? VAR Message ?>
+        </li>
+    <? ENDLOOP ?>
+</ul>
+
 <? INC Footer.tmpl ?>
