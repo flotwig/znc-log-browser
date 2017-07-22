@@ -1,0 +1,46 @@
+<? INC Header.tmpl ?>
+
+<link href="<? VAR ModFilesPath TOP ?>style.css" rel="stylesheet" type="text/css">
+
+<div class="toptable log-nav">
+    <div class="network-nav">
+        <strong>Networks</strong>
+        <ul>
+            <? LOOP Networks ?>
+                <li class="<? IF Selected == "True" ?>selected<? ENDIF ?>">
+                    <a href="?network=<? VAR Name ?>"><? VAR Name ?></a>
+                </li>
+            <? ENDLOOP ?>
+        </ul>
+    </div>
+    <div class="channel-nav">
+        <strong>Channels</strong>
+        <? IF !Channels ?>
+            <span>Select a network to view channels.</span>
+        <? ELSE ?>
+            <ul>
+                <? LOOP Channels ?>
+                    <li class="<? IF Selected == "True" ?>selected<? ENDIF ?>">
+                        <a href="?network=<? VAR Network ?>&channel=<? VAR Name ?>"><? VAR Name ?></a>
+                    </li>
+                <? ENDLOOP ?>
+            </ul>
+        <? ENDIF ?>
+    </div>
+    <div class="day-nav">
+        <strong>Days</strong>
+        <? IF !Days ?>
+            <span>Select a channel to view days.</span>
+        <? ELSE ?>
+            <ul>
+                <? LOOP Days ?>
+                    <li>
+                        <a href="log?network=<? VAR Network ?>&channel=<? VAR Channel ?>&day=<? VAR Name ?>"><? VAR Name ?></a>
+                    </li>
+                <? ENDLOOP ?>
+            </ul>
+        <? ENDIF ?>
+    </div>
+</div>
+
+<? INC Footer.tmpl ?>
