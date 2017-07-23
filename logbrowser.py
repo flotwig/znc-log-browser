@@ -33,7 +33,7 @@ class logbrowser(znc.Module):
         channel_param = str(sock.GetParam('channel', False))
         network = ''
         channel = ''
-        networks = self._GetNetworks(sock)
+        networks = sorted(self._GetNetworks(sock))
         if len(networks) == 1:
             network = networks[0]
         elif network_param in networks:
@@ -46,7 +46,7 @@ class logbrowser(znc.Module):
             row['URL'] = self._GetLink(network_name)
         # load channels for network
         if network != '':
-            channels = self._GetChannels(sock, network)
+            channels = sorted(self._GetChannels(sock, network))
             if len(channels) == 1:
                 channel = channels[0]
             elif channel_param in channels:
@@ -61,7 +61,7 @@ class logbrowser(znc.Module):
                 row['URL'] = self._GetLink(network, channel_name)
         # load days for channel
         if network != '' and channel != '':
-            days = self._GetDays(sock, network, channel)
+            days = sorted(self._GetDays(sock, network, channel), reverse=True)
             for day in days:
                 row = tmpl.AddRow("Days")
                 row["Name"] = str(day)
