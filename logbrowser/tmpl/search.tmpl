@@ -1,0 +1,16 @@
+<? INC Header.tmpl ?>
+
+<form method="POST">
+    <? INC _csrf_check.tmpl ?>
+    Query: <input type="text" name="q">
+</form>
+
+<link href="<? VAR ModFilesPath TOP ?>style.css" rel="stylesheet" type="text/css">
+
+<ul>
+<? LOOP Results ?>
+    <? VAR Path ?>
+<? ENDLOOP ?>
+</ul>
+
+<? INC Footer.tmpl ?>

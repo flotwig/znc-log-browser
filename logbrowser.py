@@ -2,6 +2,7 @@
 
 import znc
 import re
+import os
 from glob import glob
 from urllib import parse
 
@@ -9,6 +10,10 @@ from urllib import parse
 class logbrowser(znc.Module):
     module_types = [znc.CModInfo.UserModule]
     description = "Web based log viewer for the log module"
+
+    def OnLoad(self, args, message):
+        #self.AddSubPage(znc.CreateWebSubPage('search', title='Search'))
+        return True
 
     def GetWebMenuTitle(self):
         return "Log browser"
@@ -18,6 +23,8 @@ class logbrowser(znc.Module):
             return self._OnLogRequest(sock, page, tmpl)
         elif str(page) == 'index':
             return self._OnIndexRequest(sock, page, tmpl)
+        elif str(page) == 'search':
+            return self._OnSearchRequest(sock, page, tmpl)
         else:
             return sock.PrintNotFound()
 
@@ -83,6 +90,15 @@ class logbrowser(znc.Module):
         self._SetBreadCrumbs(tmpl, network_param, channel_param, day_param)
         return True
 
+    def _OnSearchRequest(self, sock, page, tmpl):
+        query_param = str(sock.GetParam('q'))
+        if query_param != '':
+            results = []
+            for r in results:
+                row = tmpl.AddRow("Results")
+                row["Path"] = r + '/'
+        return True
+
     def _SetBreadCrumbs(self, tmpl, network, channel, day=''):
         if network != '':
             row = tmpl.AddRow("BreadCrumbs")
@@ -135,13 +151,7 @@ class logbrowser(znc.Module):
         return logPath.split('/')[-1].split('.')[0]
 
     def _GetLogPath(self, sock):
-        # wtf is happening here? this works but y? TODO FIXME
-        return sock.GetSession().GetUser().GetUserPath(
-        ) + '/moddata/log/' + sock.GetSession().GetUser().GetUserPath(
-        ) + '/moddata/log/'
+        return sock.GetSession().GetUser().GetUserPath() + '/moddata/log/'
 
     def _FormatLog(self, msg):
-        #regex = r"^\[(\d\d:\d\d:\d\d)\] ([\-\<]\S+[\>\-]|\*\*\*) (.*)$"
-        #subst = "<span class=\"dm\"><a>[</a>$1<a>]</a></span> <span class=\"from\">$2</span> $3"
-
         return msg.replace("\n\n", "\n")
