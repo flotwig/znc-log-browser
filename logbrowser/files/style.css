@@ -44,6 +44,7 @@
     border: 1px solid #000;
     padding: 10px;
     line-height: 1.2em;
+    background-color: rgba(128,128,128,.1);
 }
 .dm > a {
     opacity: .6;
