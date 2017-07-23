@@ -1,13 +1,8 @@
 <? INC Header.tmpl ?>
 
-<link href="<? VAR ModFilesPath TOP ?>style.css" rel="stylesheet" type="text/css">
+<pre class="log"><? VAR Log ?></pre>
 
-<ul class="log-lines">
-    <? LOOP LogLines ?>
-        <li>
-            <? VAR Message ?>
-        </li>
-    <? ENDLOOP ?>
-</ul>
+<link href="<? VAR ModFilesPath TOP ?>style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<? VAR ModFilesPath TOP?>highlight.js"></script>
 
 <? INC Footer.tmpl ?>

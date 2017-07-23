@@ -1,3 +1,6 @@
+/*
+ * Styles for log browsing
+ */
 .selected {
     font-weight: 800;
 }
@@ -28,6 +31,23 @@
 .log-nav > div > ul > li {
     list-style-type: none;
 }
-.log-lines > li {
-    list-style-type: none;
+
+/*
+ * Styles for log display
+ */
+.log {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    border: 1px solid #000;
+    padding: 10px;
+    line-height: 1.2em;
+}
+.dm > a {
+    opacity: .6;
+}
+.dm {
+    opacity: .7;
 }

@@ -1,6 +1,7 @@
 # logbrowser.py
 
 import znc
+import re
 from glob import glob
 from urllib import parse
 
@@ -78,9 +79,7 @@ class logbrowser(znc.Module):
             return sock.PrintNotFound()
         with self._OpenLog(sock, network_param, channel_param,
                            day_param) as log:
-            for line in log:
-                row = tmpl.AddRow("LogLines")
-                row["Message"] = line
+            tmpl["Log"] = self._FormatLog("\n".join(log.readlines()))
         self._SetBreadCrumbs(tmpl, network_param, channel_param, day_param)
         return True
 
@@ -140,3 +139,9 @@ class logbrowser(znc.Module):
         return sock.GetSession().GetUser().GetUserPath(
         ) + '/moddata/log/' + sock.GetSession().GetUser().GetUserPath(
         ) + '/moddata/log/'
+
+    def _FormatLog(self, msg):
+        #regex = r"^\[(\d\d:\d\d:\d\d)\] ([\-\<]\S+[\>\-]|\*\*\*) (.*)$"
+        #subst = "<span class=\"dm\"><a>[</a>$1<a>]</a></span> <span class=\"from\">$2</span> $3"
+
+        return msg.replace("\n\n", "\n")
