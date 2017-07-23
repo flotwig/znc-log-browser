@@ -119,7 +119,7 @@ class logbrowser(znc.Module):
 
     def _GetChannels(self, sock, network):
         dirs = map(self._GetLastDir,
-                   glob(self._GetLogPath(sock) + network + '/*/'))
+                   glob(self._GetLogPath(sock, network) + '*/'))
         return list(dirs)
 
     def _GetLink(self, network='', channel='', day=''):
@@ -134,15 +134,12 @@ class logbrowser(znc.Module):
         return url
 
     def _GetDays(self, sock, network, channel):
-        files = map(
-            self._GetLogName,
-            glob(self._GetLogPath(sock) + network + '/' + channel + '/*'))
+        files = map(self._GetLogName,
+                    glob(self._GetLogPath(sock, network, channel) + '*'))
         return files
 
     def _OpenLog(self, sock, network, channel, day):
-        return open(
-            self._GetLogPath(sock) + network + '/' + channel + '/' + day +
-            '.log')
+        return open(self._GetLogPath(sock, network, channel, day))
 
     def _GetLastDir(self, dir):
         return dir.split('/')[-2]
@@ -150,8 +147,15 @@ class logbrowser(znc.Module):
     def _GetLogName(self, logPath):
         return logPath.split('/')[-1].split('.')[0]
 
-    def _GetLogPath(self, sock):
-        return sock.GetSession().GetUser().GetUserPath() + '/moddata/log/'
+    def _GetLogPath(self, sock, network='', channel='', day=''):
+        path = sock.GetSession().GetUser().GetUserPath() + '/moddata/log/'
+        if network != '':
+            path += network + '/'
+            if channel != '':
+                path += channel + '/'
+                if day != '':
+                    path += day + '.log'
+        return path
 
     def _FormatLog(self, msg):
         return msg.replace("\n\n", "\n")
